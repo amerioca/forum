@@ -12,12 +12,20 @@ class ThreadsTest extends TestCase
     /**
      * A basic test example.
      *
-     * @return void
+     * @test
      */
-    public function a_user_can_browse_threads()
+    public function a_user_can_read_a_single_threads()
     {
         $response = $this->get('/threads');
 
         $response->assertStatus(200);
+    }
+
+    /** 
+    @test
+    **/
+    public function a_user_can_view_all_threads()
+    {
+
     }
 }
