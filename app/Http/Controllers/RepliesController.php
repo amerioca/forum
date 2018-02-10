@@ -13,7 +13,7 @@ class RepliesController extends Controller
 	}
 	
 
-    public function store(Thread $thread)
+    public function store($channelId, Thread $thread)
     {
     	//var_dump(auth()->id());
     	$thread->addReply([
