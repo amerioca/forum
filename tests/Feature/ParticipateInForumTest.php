@@ -15,7 +15,7 @@ class ParticipateInForumTest extends TestCase
 	public function an_unauthorized_user_may_participate_in_forum_threads()
 	{
 		$this->expectException('Illuminate\Auth\AuthenticateException');
-    	$this->post('/threads/1/replies', []);
+    	$this->post('/threads/test-thread/1/replies', []);
 	}
 
     /**
@@ -32,6 +32,8 @@ class ParticipateInForumTest extends TestCase
     	$this->get($thread->path())
         	->assertSee($reply->body);
     }
+
+    /* @test */
     public function a_reply_requires_a_body()
     {
         $this->withExceptionHandling()->signIn();

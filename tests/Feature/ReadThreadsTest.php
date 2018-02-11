@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ThreadsTest extends TestCase
+class ReadThreadsTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -16,7 +16,7 @@ class ThreadsTest extends TestCase
         $this->thread = factory('App\Thread')->create();
     }
     
-    /** @test **/
+    /* @test **/
     public function a_user_can_browse_all_threads()
     {
         $this->get('/threads')
@@ -38,5 +38,19 @@ class ThreadsTest extends TestCase
             ->create(['thread_id' => $this->thread->id]);
         $this->get('/threads/some-channel/' . $this->thread->id)
             ->assertSee($reply->body);
+    }
+    /** @test */
+    public function a_user_can_filter_threads_according_to_a_channel()
+    {
+        $channel = create('App\Channel');
+        //dd($channel);
+        $threadInChannel = create('App\Thread', ['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\Thread');
+        $link = "/threads/{$channel->slug}";
+        //dd($link);
+        //dd([ $threadInChannel, $threadNotInChannel ]);
+        $this->get($link)
+            ->assertSee($threadInChannel->title)
+            ->assertDontSee($threadNotInChannel->title);
     }
 }
