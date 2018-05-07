@@ -23,14 +23,14 @@ class ReadThreadsTest extends TestCase
             ->assertSee($this->thread->title);
     }
 
-    /** @test **/
+    /* @test **/
     public function a_user_can_read_a_single_thread()
     {
         $this->get('/threads/some-channel/' . $this->thread->id)
             ->assertSee($this->thread->title);
     }
 
-    /** @test **/
+    /* @test **/
     public function a_user_can_read_replies_that_are_associated_with_a_thread()
     {
 
